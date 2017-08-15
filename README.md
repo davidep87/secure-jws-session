@@ -48,7 +48,7 @@ const decoded = await auth.decodeToken(token)
 #### Attach the session handler over the Koa context
 
 ```javascript
-  app.context.auth = auth
+app.context.auth = auth
 ```
 
 #### Create a Middleware
