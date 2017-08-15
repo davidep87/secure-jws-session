@@ -1,6 +1,6 @@
 # Simple JWS Session handler
 
-<div class="text-center">
+<div align="center">
 
 [![Build Status](https://travis-ci.org/davidep87/secure-jws-session.svg?branch=master)](https://travis-ci.org/davidep87/secure-jws-session)
 
