@@ -21,9 +21,9 @@ npm install secure-jws-session
 const Session = require('secure-jws-session')
 
 const config = {
-  secret: '@2e£$1#1&$23_-!', // a secret key
-  serverHost: 'www.mdslab.org',
-  time: 1 // in minutes
+  secret: '@2e£$1#1&$23_-!', // secret key (String)
+  serverHost: 'www.mdslab.org', // server hostname (String)
+  time: 1 // Set time expiration in minutes (Int)
 }
 
 const auth = new Session(config)

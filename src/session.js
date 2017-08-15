@@ -7,7 +7,8 @@ class Session {
   /**
    * constructor config
    * @param  {string} secret a secret key used to generate the token
-   * @param  {string} serverHost the hostname of the server
+   * @param  {string} serverHost hostname of the server
+   * @param  {int}    time minutes of life for the token
    */
   constructor(config){
     this.secret = config.secret
@@ -30,7 +31,7 @@ class Session {
 
   /**
    * deleteToken description
-   * @param  {type}  token [user token]
+   * @param  {type}  token user token
    */
   async deleteToken(token){
     const decoded = await this.decodeToken(token)
