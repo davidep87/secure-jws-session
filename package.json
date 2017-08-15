@@ -1,0 +1,28 @@
+{
+  "name": "secure-jws-session",
+  "version": "0.1.0",
+  "description": "Secure json web signature sessions with Redis",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "jwt",
+    "redis",
+    "session"
+  ],
+  "author": "Davide Polano",
+  "license": "MIT",
+  "dependencies": {
+    "jws": "^3.1.4",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "bejs": "^1.11.0",
+    "mocha": "^3.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidep87/secure-jwt-session"
+  }
+}
