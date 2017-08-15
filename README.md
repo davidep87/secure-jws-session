@@ -19,8 +19,10 @@ const auth = new Session(config)
 ```
 
 ##### Generate a new token passing the user ID and the user type
+
 ```javascript
-const token = await auth.createToken(1, 'user')```
+const token = await auth.createToken(1, 'user')
+```
 
 ##### Store the new session token in redis
 
