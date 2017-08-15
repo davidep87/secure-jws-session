@@ -46,10 +46,13 @@ const decoded = await auth.decodeToken(token)
 
 ### Using the session handler as middleware in Koa
 #### Attach the session handler over the Koa context
+
 ```javascript
   app.context.auth = auth
 ```
+
 #### Create a Middleware
+
 ```javascript
 module.exports = function(){
 
@@ -70,6 +73,7 @@ module.exports = function(){
 ```
 
 #### Now you can use it in your route file
+
 ```javascript
 const router = require('koa-router')()
 const body = require('koa-body')()
