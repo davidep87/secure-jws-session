@@ -11,6 +11,9 @@
 
 
 ### How to use:
+```javascript
+npm install secure-jws-session
+```
 
 ```javascript
 
