@@ -1,11 +1,10 @@
 {
   "name": "secure-jws-session",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Secure json web signature sessions with Redis",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc2md --no-gfm src/session.js > api.md",
-    "tagUpdate": "version-to-tag.sh",
+    "publish": "sh version-to-tag.sh && npm publish",
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "keywords": [
