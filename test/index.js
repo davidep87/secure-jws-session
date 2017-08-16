@@ -8,6 +8,7 @@ const auth = new Session({
   })
 
 let token = ''
+const expiredToken = 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3d3cubWRzbGFiLm9yZyIsImV4cCI6IjIwMTctMDgtMTZUMDc6MjY6MTEuMzgyWiIsImlkIjoxLCJ0eXBlIjoidXNlciJ9.dVtZJYpPYuzdusGyI_-EwF1zpnSiJyFI7bbmOcJZLgA'
 
 describe('createToken', function() {
   it('should return new token', async () => {
@@ -53,6 +54,21 @@ describe('check', function() {
     let result = await auth.check(token)
     console.log(result)
     assert.equal(result.isLogged, true)
+  });
+});
+
+describe('check', function() {
+  it('should return object with not valid token message', async () => {
+    const session = {
+        user: 1,
+        token: expiredToken,
+        exp: new Date().getTime() + 1,
+        type: 'user'
+      }
+    await auth.insert(session)
+    let result = await auth.check(expiredToken)
+    console.log(result)
+    assert.equal(result.isLogged, false)
   });
 });
 
