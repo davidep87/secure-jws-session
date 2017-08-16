@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "jsdoc2md --no-gfm src/session.js > api.md",
+    "tagUpdate": "version-to-tag.sh",
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "keywords": [
