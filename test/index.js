@@ -18,6 +18,14 @@ describe('createToken', function() {
 });
 
 describe('decodeToken', function() {
+  it('should not return a decoded token', async () => {
+    let result = await auth.decodeToken(token.substring(0, 10))
+    console.log(result)
+    assert.equal(result.hasOwnProperty('id'), false)
+  });
+});
+
+describe('decodeToken', function() {
   it('should return decoded token', async () => {
     let result = await auth.decodeToken(token)
     console.log(result)
