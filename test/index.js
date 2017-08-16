@@ -26,6 +26,14 @@ describe('decodeToken', function() {
 });
 
 describe('check', function() {
+  it('should return isLogged false', async () => {
+    let result = await auth.check(token)
+    console.log(result)
+    assert.equal(result.isLogged, false)
+  });
+});
+
+describe('check', function() {
   it('should return session status object', async () => {
     const session = {
         user: 1,
@@ -36,6 +44,6 @@ describe('check', function() {
     await auth.insert(session)
     let result = await auth.check(token)
     console.log(result)
-    assert.equal(result.hasOwnProperty('isLogged'), true)
+    assert.equal(result.isLogged, true)
   });
 });
