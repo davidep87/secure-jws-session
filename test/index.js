@@ -55,3 +55,12 @@ describe('check', function() {
     assert.equal(result.isLogged, true)
   });
 });
+
+describe('deleteToken', function() {
+  it('should remove a token', async () => {
+    await auth.deleteToken(token)
+    let result = await auth.check(token)
+    console.log(result)
+    assert.equal(result.isLogged, false)
+  });
+});

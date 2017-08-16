@@ -35,7 +35,7 @@ class Session {
    */
   async deleteToken(token){
     const decoded = await this.decodeToken(token)
-    await client.del(decoded.id)
+    await client.del(`${decoded.type}-${decoded.id}`)
   }
 
   /**
