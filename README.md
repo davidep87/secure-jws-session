@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/davidep87/secure-jws-session.svg?branch=master)](https://travis-ci.org/davidep87/secure-jws-session)
 [![Coverage Status](https://coveralls.io/repos/github/davidep87/secure-jws-session/badge.svg?branch=master&1)](https://coveralls.io/github/davidep87/secure-jws-session?branch=master)
 <a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" title="License: MIT"/></a>
-<img src="https://img.shields.io/badge/node.js-%3E%3D7-blue.svg" title="Node.js version"/>
+<img src="https://img.shields.io/badge/node.js%20-%3E%207.6-blue.svg" title="Node.js version"/>
 <img src="https://img.shields.io/badge/team-terrons-orange.svg" title="Team Terrons"/>
 </div>
 

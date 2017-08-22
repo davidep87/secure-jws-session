@@ -24,9 +24,7 @@ describe('decodeToken', function() {
     console.log(result)
     assert.equal(result.hasOwnProperty('id'), false)
   });
-});
 
-describe('decodeToken', function() {
   it('should return decoded token', async () => {
     let result = await auth.decodeToken(token)
     console.log(result)
@@ -34,30 +32,21 @@ describe('decodeToken', function() {
   });
 });
 
+
 describe('check', function() {
+
   it('should return isLogged false', async () => {
     let result = await auth.check(token)
     console.log(result)
     assert.equal(result.isLogged, false)
   });
-});
 
-describe('check', function() {
-  it('should return session status object', async () => {
-    const session = {
-        user: 1,
-        token,
-        exp: new Date().getTime() + 1,
-        type: 'user'
-      }
-    await auth.insert(session)
-    let result = await auth.check(token)
+  it('should not decode the token', async () => {
+    let result = await auth.check('JIUzI1NiJ9.eyJpc3MiOiJ3d')
     console.log(result)
-    assert.equal(result.isLogged, true)
+    assert.equal(result.isLogged, false)
   });
-});
 
-describe('check', function() {
   it('should return object with not valid token message', async () => {
     const session = {
         user: 1,
@@ -70,6 +59,20 @@ describe('check', function() {
     console.log(result)
     assert.equal(result.isLogged, false)
   });
+
+  it('should return session status object', async () => {
+    const session = {
+        user: 1,
+        token,
+        exp: new Date().getTime() + 1,
+        type: 'user'
+      }
+    await auth.insert(session)
+    let result = await auth.check(token)
+    console.log(result)
+    assert.equal(result.isLogged, true)
+  });
+
 });
 
 describe('deleteToken', function() {
