@@ -16,6 +16,13 @@ describe('createToken', function() {
     console.log(token)
     assert.equal(be.emptyString(token), false)
   });
+
+  it('should return new token with custom expiration', async () => {
+    let exp = new Date().getTime() + (360000 * 24 * 30)
+    token = await auth.createToken(1, 'user', exp)
+    console.log(token)
+    assert.equal(be.emptyString(token), false)
+  });
 });
 
 describe('decodeToken', function() {

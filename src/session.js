@@ -80,13 +80,12 @@ class Session {
    * @param  {type}  id user id or anything that you like to use as identificator
    * @return {string}   token
    */
-  async createToken(id, type) {
-    const time = new Date()
-    time.setMinutes(time.getMinutes() + this.time)
-
+  async createToken(id, type, exp) {
+    let expiration = exp === undefined ? this.time : exp
+    
     const payload = {
       iss: this.server,
-      exp: time,
+      exp: expiration,
       id: id,
       type: type
     }
