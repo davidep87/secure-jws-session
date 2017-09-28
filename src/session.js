@@ -23,7 +23,6 @@ class Session {
    * @param  {unixtime}  session.exp expiration time of token
    */
   async insert(session){
-    console.log('INSERT SESSION', session)
     await client.set(`${session.type}-${session.user}`, `${session.token}`, 'EX', session.exp)
   }
 
@@ -49,22 +48,13 @@ class Session {
 
     const decoded = await this.decodeToken(token)
 
-    console.log('DECODED', decoded)
-
     if(!decoded){
 
       message = TOKEN_NOT_VALID
 
     } else {
 
-      let nowDate = new Date()
-      let decodedDate = new Date(decoded.exp)
-
-      console.log('DECODED EXP', decoded.exp)
-      console.log('DECODED EXP DATE', decodedDate)
-      console.log('DATE', nowDate)
-
-      if(nowDate > decodedDate){
+      if(new Date() > new Date(decoded.exp)){
 
         await client.del(`${decoded.type}-${decoded.id}`)
         message = TOKEN_NOT_VALID
@@ -72,8 +62,6 @@ class Session {
       } else {
 
         const storedToken = await this.retrieveKey(`${decoded.type}-${decoded.id}`)
-
-        console.log('STORED TOKEN', storedToken)
 
         if(storedToken === token)
           isLogged = true
