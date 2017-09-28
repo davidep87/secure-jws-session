@@ -57,7 +57,7 @@ class Session {
 
     } else {
 
-      if(new Date() > new Date(decoded.exp)){
+      if(new Date() > decoded.exp){
 
         await client.del(`${decoded.type}-${decoded.id}`)
         message = TOKEN_NOT_VALID
@@ -81,8 +81,19 @@ class Session {
    * @return {string}   token
    */
   async createToken(id, type, exp) {
-    let expiration = exp === undefined ? this.time : exp
-    
+    let expiration = null
+
+    if(exp === undefined){
+      const time = new Date()
+      time.setMinutes(time.getMinutes() + this.time)
+      console.log('time => ', time)
+      expiration = time
+    } else {
+      expiration = new Date(exp)
+    }
+
+    console.log('expiration ', expiration)
+
     const payload = {
       iss: this.server,
       exp: expiration,

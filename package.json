@@ -1,6 +1,6 @@
 {
   "name": "secure-jws-session",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Secure json web signature sessions with Redis",
   "main": "index.js",
   "scripts": {
