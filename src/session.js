@@ -23,10 +23,8 @@ class Session {
    * @param  {unixtime}  session.exp expiration time of token
    */
   async insert(session){
-    await client.set(`${session.type}-${session.user}`, `${session.token}`, redis.print)
-    await client.expireat(`${session.type}-${session.user}`, session.exp, function (err, didSetExpiry) {
-        console.log('set exp => ', didSetExpiry)
-    })
+    console.log('INSERT SESSION', session)
+    await client.set(`${session.type}-${session.user}`, `${session.token}`, 'EX', session.exp)
   }
 
   /**
@@ -51,13 +49,22 @@ class Session {
 
     const decoded = await this.decodeToken(token)
 
+    console.log('DECODED', decoded)
+
     if(!decoded){
 
       message = TOKEN_NOT_VALID
 
     } else {
 
-      if(new Date() > decoded.exp){
+      let nowDate = new Date()
+      let decodedDate = new Date(decoded.exp)
+
+      console.log('DECODED EXP', decoded.exp)
+      console.log('DECODED EXP DATE', decodedDate)
+      console.log('DATE', nowDate)
+
+      if(nowDate > decodedDate){
 
         await client.del(`${decoded.type}-${decoded.id}`)
         message = TOKEN_NOT_VALID
@@ -65,6 +72,8 @@ class Session {
       } else {
 
         const storedToken = await this.retrieveKey(`${decoded.type}-${decoded.id}`)
+
+        console.log('STORED TOKEN', storedToken)
 
         if(storedToken === token)
           isLogged = true
@@ -86,13 +95,10 @@ class Session {
     if(exp === undefined){
       const time = new Date()
       time.setMinutes(time.getMinutes() + this.time)
-      console.log('time => ', time)
       expiration = time
     } else {
       expiration = new Date(exp)
     }
-
-    console.log('expiration ', expiration)
 
     const payload = {
       iss: this.server,
