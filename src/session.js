@@ -1,6 +1,5 @@
 const jws = require('jws')
 const redis = require('redis')
-const client = redis.createClient()
 const TOKEN_NOT_VALID = 'Token is not valid'
 
 class Session {
@@ -14,6 +13,7 @@ class Session {
     this.secret = config.secret
     this.server = config.serverHost
     this.time = config.time
+    this.client = redis.createClient({ host: config.redisHost })
   }
 
   /**
@@ -23,7 +23,7 @@ class Session {
    * @param  {unixtime}  session.exp expiration time of token
    */
   async insert(session){
-    await client.set(`${session.type}-${session.user}`, `${session.token}`, 'EX', session.exp)
+    await this.client.set(`${session.type}-${session.user}`, `${session.token}`, 'EX', session.exp)
   }
 
   /**
@@ -32,7 +32,7 @@ class Session {
    */
   async deleteToken(token){
     const decoded = await this.decodeToken(token)
-    await client.del(`${decoded.type}-${decoded.id}`)
+    await this.client.del(`${decoded.type}-${decoded.id}`)
   }
 
   /**
@@ -56,7 +56,7 @@ class Session {
 
       if(new Date() > new Date(decoded.exp)){
 
-        await client.del(`${decoded.type}-${decoded.id}`)
+        await this.client.del(`${decoded.type}-${decoded.id}`)
         message = TOKEN_NOT_VALID
 
       } else {
@@ -126,7 +126,7 @@ class Session {
   async retrieveKey(key) {
 
     return new Promise((resolve, reject) => {
-      client.get(`${key}`, function (err, value){
+      this.client.get(`${key}`, function (err, value){
          if (err){
            reject(err)
            return
